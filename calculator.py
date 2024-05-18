@@ -19,19 +19,19 @@ def button_click(event):
         entry.delete(len(entry.get()) - 1)
     elif text == "sin":
         # Insert "math.sin(" or "math.sin(math.radians(" depending on the mode
-        if mode.get() == "degrees":
+        if mode.get() == "D":
             entry.insert(tk.END, "math.sin(math.radians(")
         else:
             entry.insert(tk.END, "math.sin(")
     elif text == "cos":
         # Insert "math.cos(" or "math.cos(math.radians(" depending on the mode
-        if mode.get() == "degrees":
+        if mode.get() == "D":
             entry.insert(tk.END, "math.cos(math.radians(")
         else:
             entry.insert(tk.END, "math.cos(")
     elif text == "tan":
         # Insert "math.tan(" or "math.tan(math.radians(" depending on the mode
-        if mode.get() == "degrees":
+        if mode.get() == "D":
             entry.insert(tk.END, "math.tan(math.radians(")
         else:
             entry.insert(tk.END, "math.tan(")
@@ -43,10 +43,10 @@ def button_click(event):
         entry.insert(tk.END, "math.sqrt(")
     elif text == "Degrees":
         # Set the mode to "degrees"
-        mode.set("degrees")
+        mode.set("D")
     elif text == "Radians":
         # Set the mode to "radians"
-        mode.set("radians")
+        mode.set("R")
     elif text == "π":
         # Insert "math.pi" for the constant π (pi)
         entry.insert(tk.END, "math.pi")
@@ -57,7 +57,7 @@ def button_click(event):
 def calculate_result(expression):
     # Function to calculate the result
     try:
-        if mode.get() == "degrees":
+        if mode.get() == "D":
             # Evaluate the expression while converting degrees to radians if in degrees mode
             result = eval(expression.replace("math.degrees", ""))
         else:
@@ -75,7 +75,7 @@ def show_buttons(row, col):
     if row < num_rows:
         if col < len(buttons[row]):
             button_text = buttons[row][col]
-            button_color = "yellow" if button_text in ["Del", "C", "Degrees", "Radians"] else "white"
+            button_color = "yellow" if button_text in ["Del", "C", "Degrees", "Radians"] else "gray"
             # Create and configure the button
             button = tk.Button(root, text=button_text, font=("Arial", 12), width=5, bg=button_color)
             button.grid(row=row + 1, column=col, padx=5, pady=5, sticky="wens")
@@ -92,19 +92,19 @@ def show_buttons(row, col):
 root = tk.Tk()
 root.geometry("450x450")  # Set the window size
 root.title("Scientific Calculator")  # Set the window title
-root.configure(bg="gray")  # Set the background color to gray
+root.configure(bg="white")  # Set the background color to gray
 root.resizable(width=True, height=True)  # Allow window resizing
 
 # Variable to store the mode (degrees or radians)
 mode = tk.StringVar()
-mode.set("radians")  # Set the initial mode to radians
+mode.set("R")  # Set the initial mode to radians
 
 # Create the entry widget
 entry = tk.Entry(root, font=("Arial", 20), justify=tk.RIGHT)
 entry.grid(row=0, column=0, columnspan=5, padx=10, pady=10, sticky="we")
 
 # Create the mode label
-mode_label = tk.Label(root, textvariable=mode, font=("Arial", 12, "bold"), fg="blue")
+mode_label = tk.Label(root, textvariable=mode, font=("Arial", 12, "bold"), fg="black")
 mode_label.grid(row=0, column=5, padx=5, pady=10, sticky="w")
 
 # Create the buttons
